@@ -1,0 +1,66 @@
+<!DOCTYPE>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>MOVIE SEARCHER</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    
+    </head>
+    <body>
+        <div class="MyContainer">
+            <h1 class="text-center mt-5">MOVIE SEARCHER</h1>
+            <form id="movieinfo" autocomplete="off">
+                <div class="form-group">
+                    <label for="movie">Search</label>
+                    <input class="form-control" type="text" id="movietype" placeholder="Movie..">
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-danger btn-block">
+                    Search Movie
+                  </button>
+                </div>
+           </form>
+             <div id="result">
+             </div>
+        </div>
+    </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function(){
+                         var keyapi="d0c89afc"
+                        $("#movieinfo").submit(function(event){
+                                event.preventDefault()
+                                var movie=$("#movietype").val();
+                                var result=""
+                                var ombdurl="http://www.omdbapi.com/?apikey="+keyapi
+                                
+                                $.ajax({
+                                    method:'GET',
+                                    url:ombdurl+"&t="+movie,
+                                    success:function(data){
+                                        console.log(data);
+                                        result= `
+                                        <img style="float:left" class="img-thumnail" width="200" height="310" src="${data.Poster}"/>
+                                        <h2>Name:${data.Title}<\h1>
+                                        <h2>Year:${data.Year}<\h2>
+                                        <h2>Director:${data.Director}<\h2>
+                                        <h2>Genre:${data.Genre}<\h2>
+                                        <h2>Actors:${data.Actors}<\h2>
+                                        <h2>Writer:${data.Actors}<\h2>
+                                        <h2>Imdbratings:${data.imdbRating}<\h2>
+                                        `;
+                                        
+                                        
+                                      $("#result").html(result);
+                                    }
+                                })
+              
+                        })
+                                                
+                                                
+              })
+                        
+    
+    </script>
+</html>
